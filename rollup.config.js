@@ -14,25 +14,22 @@ export default {
   },
   plugins: [
     alias({
-      inferno: path.join(
-        __dirname,
-        './src/inferno-v7.1.7/inferno/src/index.js',
-      ),
+      inferno: path.join(__dirname, './inferno-v7.1.7/inferno/src/index.js'),
       'inferno-component': path.join(
         __dirname,
-        './src/inferno-v7.1.7/inferno-component/src/index.js',
+        './inferno-v7.1.7/inferno-component/src/index.js',
       ),
       'inferno-shared': path.join(
         __dirname,
-        './src/inferno-v7.1.7/inferno-shared/src/index.js',
+        './inferno-v7.1.7/inferno-shared/src/index.js',
       ),
       'inferno-component': path.join(
         __dirname,
-        './src/inferno-v7.1.7/inferno-component/src/index.js',
+        './inferno-v7.1.7/inferno-component/src/index.js',
       ),
       'inferno-create-element': path.join(
         __dirname,
-        './src/inferno-v7.1.7/inferno-create-element/src/index.js',
+        './inferno-v7.1.7/inferno-create-element/src/index.js',
       ),
     }),
     replace({

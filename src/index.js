@@ -1,6 +1,8 @@
 import { render, Component } from 'inferno';
 import { createElement } from 'inferno-create-element';
 
+import MySubComp from './comps/mySub.comp';
+
 class MyComponent extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +15,9 @@ class MyComponent extends Component {
       <div>
         <h1>Header!</h1>
         <span>Counter is at: {this.state.counter}</span>
+        <div>
+          <MySubComp name="myName" age={2} />
+        </div>
       </div>
     );
   }
