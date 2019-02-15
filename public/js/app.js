@@ -2214,9 +2214,10 @@
     function Login(props) {
       return (
         createElement( 'div', { class: "centered-wrapper" },
-          createElement( 'div', { class: "centered-content" },
-            createElement( 'h1', null, "Gestion des contacts" ),
-            createElement( 'form', { class: "auth", onSubmit: linkEvent(props, loginRequest) },
+          createElement( 'div', { class: "centered-content text-primary-color" },
+            createElement( 'h1', { class: "fw300" }, "Gestion des contacts"),
+            createElement( 'form', {
+              class: "auth default-primary-color shadow", onSubmit: linkEvent(props, loginRequest) },
               createElement( 'input', { type: "text", placeholder: "Login" }),
               createElement( 'input', { type: "password", placeholder: "Mot de passe" }),
               createElement( 'input', { type: "submit", value: "Connexion" })
