@@ -425,6 +425,19 @@
         return vNode;
     }
 
+    /**
+     * Links given data to event as first parameter
+     * @param {*} data data to be linked, it will be available in function as first parameter
+     * @param {Function} event Function to be called when event occurs
+     * @returns {{data: *, event: Function}}
+     */
+    function linkEvent(data, event) {
+        if (isFunction(event)) {
+            return { data: data, event: event };
+        }
+        return null; // Return null when event is invalid, to avoid creating unnecessary event handlers
+    }
+
     var xlinkNS = 'http://www.w3.org/1999/xlink';
     var xmlNS = 'http://www.w3.org/XML/1998/namespace';
     var namespaces = {
@@ -2182,42 +2195,64 @@
       );
     }
 
-    function MySubComp(ref) {
-      var name = ref.name;
-      var age = ref.age;
+    var App = /*@__PURE__*/(function (Component$$1) {
+      function App(props) {
+        Component$$1.call(this, props);
+        this.state = {};
+      }
 
+      if ( Component$$1 ) App.__proto__ = Component$$1;
+      App.prototype = Object.create( Component$$1 && Component$$1.prototype );
+      App.prototype.constructor = App;
+      App.prototype.render = function render$$1 () {
+        return createElement( 'div', null, "APP" );
+      };
+
+      return App;
+    }(Component));
+
+    function Login(props) {
       return (
-        createElement( 'span', null, "My name is: ", name, " and my age is: ", age
+        createElement( 'div', { class: "centered-wrapper" },
+          createElement( 'div', { class: "centered-content" },
+            createElement( 'h1', null, "Gestion des contacts" ),
+            createElement( 'form', { class: "auth", onSubmit: linkEvent(props, loginRequest) },
+              createElement( 'input', { type: "text", placeholder: "Login" }),
+              createElement( 'input', { type: "password", placeholder: "Mot de passe" }),
+              createElement( 'input', { type: "submit", value: "Connexion" })
+            )
+          )
         )
       );
     }
 
-    var MyComponent = /*@__PURE__*/(function (Component$$1) {
-      function MyComponent(props) {
+    function loginRequest(props, event) {
+      event.preventDefault();
+      props.root.setState({ connected: true });
+    }
+
+    var Root = /*@__PURE__*/(function (Component$$1) {
+      function Root(props) {
         Component$$1.call(this, props);
         this.state = {
-          counter: 33,
+          connected: false,
         };
       }
 
-      if ( Component$$1 ) MyComponent.__proto__ = Component$$1;
-      MyComponent.prototype = Object.create( Component$$1 && Component$$1.prototype );
-      MyComponent.prototype.constructor = MyComponent;
-      MyComponent.prototype.render = function render$$1 () {
-        return (
-          createElement( 'div', null,
-            createElement( 'h1', null, "Header!" ),
-            createElement( 'span', null, "Counter is at: ", this.state.counter ),
-            createElement( 'div', null,
-              createElement( MySubComp, { name: "myName", age: 2 })
-            )
-          )
+      if ( Component$$1 ) Root.__proto__ = Component$$1;
+      Root.prototype = Object.create( Component$$1 && Component$$1.prototype );
+      Root.prototype.constructor = Root;
+      Root.prototype.render = function render$$1 () {
+        return this.state.connected === true ? (
+          createElement( App, { root: this })
+        ) : (
+          createElement( Login, { root: this })
         );
       };
 
-      return MyComponent;
+      return Root;
     }(Component));
 
-    render(createElement( MyComponent, null ), document.getElementById('app'));
+    render(createElement( Root, null ), document.getElementById('root'));
 
 }());

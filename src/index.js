@@ -1,26 +1,23 @@
 import { render, Component } from 'inferno';
 import { createElement } from 'inferno-create-element';
 
-import MySubComp from './app/comps/mySub.comp';
+import App from './app/comps/app.comp';
+import Login from './app/comps/login.comp';
 
-class MyComponent extends Component {
+class Root extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      counter: 33,
+      connected: false,
     };
   }
   render() {
-    return (
-      <div>
-        <h1>Header!</h1>
-        <span>Counter is at: {this.state.counter}</span>
-        <div>
-          <MySubComp name="myName" age={2} />
-        </div>
-      </div>
+    return this.state.connected === true ? (
+      <App root={this} />
+    ) : (
+      <Login root={this} />
     );
   }
 }
 
-render(<MyComponent />, document.getElementById('app'));
+render(<Root />, document.getElementById('root'));

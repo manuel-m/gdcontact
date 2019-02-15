@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "npm-run-all --parallel front:dev serve",
     "front:dev": "rollup -cw",
-    "build": "rollup -c",
-    "serve": "cd public && npx http-server -p 3000",
+    "build": "cross-env NODE_ENV=production rollup -c",
+    "serve": "cd public && npx http-server -p 3030",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
