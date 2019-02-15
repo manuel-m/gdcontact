@@ -1,6 +1,6 @@
 import { createElement } from 'inferno-create-element';
 
-import shared from '../shared';
+import action from '../action';
 
 export default function Login() {
   return (
@@ -24,7 +24,6 @@ export default function Login() {
 }
 
 function loginRequest(event) {
-  const { root } = shared;
   event.preventDefault();
-  root.setState({ connected: true });
+  action('contacts.list');
 }

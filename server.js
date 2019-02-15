@@ -1,5 +1,6 @@
 'use strict';
 
+var bodyParser = require('body-parser');
 var express = require('express');
 var dotenv = require('dotenv');
 var fs = require('fs');
@@ -32,6 +33,7 @@ function save() {
 }
 
 function contacts(req, res) {
+  console.log(req.body);
   return res.json(model.data.contacts);
 }
 
@@ -41,7 +43,9 @@ const app = express();
 const { SERVER_HOST, SERVER_PORT } = conf;
 
 app.use(express.static('public'));
-app.get('/api/contacts', contacts);
+app.use(bodyParser.json());
+
+app.post('/api/contacts', contacts);
 
 app.listen(SERVER_PORT, SERVER_HOST, () => {
   console.info(`server listen on ${SERVER_PORT}`);

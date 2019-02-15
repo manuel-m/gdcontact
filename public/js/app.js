@@ -2182,7 +2182,13 @@
       );
     }
 
-    var shared = {};
+    var shared = {
+      root: null,
+      contacts: {
+        page: 0,
+        search: '',
+      },
+    };
 
     function Navbar() {
       return (
@@ -2255,6 +2261,50 @@
       return createElement( Contacts$1, null );
     }
 
+    var api = {
+      get: get,
+      post: post,
+    };
+
+    async function get(url) {
+      var rawResponse = await fetch(url);
+      var json = await rawResponse.json();
+      return json;
+    }
+
+    async function post(url, payload) {
+      var rawResponse = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          payload: payload,
+        }),
+      });
+      var json = await rawResponse.json();
+      return json;
+    }
+
+    var actions = {
+      'contacts.list': function contacts_list() {
+        var payload = {
+          page: shared.contacts.page,
+          search: shared.contacts.search,
+        };
+        console.log(payload);
+        return api.post('/api/contacts', payload).then(function (res) {
+          console.log(res);
+          shared.root.setState({ connected: true, route: 'contacts' });
+        });
+      },
+    };
+
+    function action(actionId, payload) {
+      return actions[actionId](payload);
+    }
+
     function Login() {
       return (
         createElement( 'div', { class: "centered-wrapper" },
@@ -2277,9 +2327,8 @@
     }
 
     function loginRequest(event) {
-      var root = shared.root;
       event.preventDefault();
-      root.setState({ connected: true });
+      action('contacts.list');
     }
 
     var Root = /*@__PURE__*/(function (Component$$1) {
