@@ -4,10 +4,11 @@
   "description": "Gestion de contacts",
   "main": "index.js",
   "scripts": {
-    "dev": "npm-run-all --parallel front:dev serve",
-    "front:dev": "rollup -cw",
+    "dev": "npm-run-all --parallel build:dev serve:dev",
+    "build:dev": "rollup -cw",
     "build": "cross-env NODE_ENV=production rollup -c",
-    "serve": "browser-sync public -w --port 3030",
+    "serve": "node server.js",
+    "serve:dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +24,7 @@
   "devDependencies": {
     "browser-sync": "^2.26.3",
     "cross-env": "^5.2.0",
+    "nodemon": "^1.18.10",
     "npm-run-all": "^4.1.5",
     "rollup": "^1.1.2",
     "rollup-plugin-alias": "^1.5.1",
@@ -31,5 +33,8 @@
     "rollup-plugin-uglify": "^6.0.2",
     "uglify-es": "^3.3.9"
   },
-  "dependencies": {}
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4"
+  }
 }
