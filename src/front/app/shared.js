@@ -3,5 +3,6 @@ export default {
   contacts: {
     page: 0,
     search: '',
+    items: [],
   },
 };

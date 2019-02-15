@@ -2187,6 +2187,7 @@
       contacts: {
         page: 0,
         search: '',
+        items: [],
       },
     };
 
@@ -2288,21 +2289,21 @@
     }
 
     var actions = {
-      'contacts.list': function contacts_list() {
-        var payload = {
-          page: shared.contacts.page,
-          search: shared.contacts.search,
-        };
-        console.log(payload);
-        return api.post('/api/contacts', payload).then(function (res) {
-          console.log(res);
-          shared.root.setState({ connected: true, route: 'contacts' });
-        });
-      },
+      'contacts.list': contactsList,
     };
 
     function action(actionId, payload) {
       return actions[actionId](payload);
+    }
+
+    async function contactsList() {
+      var payload = {
+        page: shared.contacts.page,
+        search: shared.contacts.search,
+      };
+      var items = await api.post('/api/contacts', payload);
+      shared.contacts.items = items;
+      shared.root.setState({ connected: true, route: 'contacts' });
     }
 
     function Login() {
