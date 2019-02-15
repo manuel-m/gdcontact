@@ -9,6 +9,7 @@ class Root extends Component {
     super(props);
     this.state = {
       connected: false,
+      failedConnection: false,
     };
   }
   render() {

@@ -34,6 +34,30 @@ body {
   background-color: #374046;
 }
 
+/* navbar ------------------------------------------------------------------ */
+.nav:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.nav__left {
+  float: left;
+}
+.nav__right {
+  float: right;
+}
+
+.nav__item {
+  padding: 1rem;
+  line-height: 3rem;
+  cursor: pointer;
+}
+
+.nav__item.selected {
+  color: #212121;
+  background-color: #cfd8dc;
+}
+
 /* utils ------------------------------------------------------------------- */
 .centered-wrapper {
   display: table;

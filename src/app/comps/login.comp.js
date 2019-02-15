@@ -10,9 +10,15 @@ export default function Login(props) {
           class="auth default-primary-color shadow"
           onSubmit={linkEvent(props, loginRequest)}
         >
-          <input type="text" placeholder="Login" />
-          <input type="password" placeholder="Mot de passe" />
-          <input type="submit" value="Connexion" />
+          <div>
+            <input type="text" placeholder="Login" />
+          </div>
+          <div>
+            <input type="password" placeholder="Mot de passe" />
+          </div>
+          <div>
+            <input type="submit" value="Connexion" />
+          </div>
         </form>
       </div>
     </div>

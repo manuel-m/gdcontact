@@ -2195,6 +2195,25 @@
       );
     }
 
+    function Navbar(props) {
+      return (
+        createElement( 'div', { class: "nav text-primary-color" },
+          createElement( 'div', { class: "nav__left" },
+            createElement( 'span', { class: "nav__item" }, "Item 1"),
+            createElement( 'span', { class: "nav__item selected" }, "Item 2")
+          ),
+          createElement( 'div', { class: "nav__right" },
+            createElement( 'span', { class: "nav__item", onClick: linkEvent(props, disconnect) }, "Déconnexion")
+          )
+        )
+      );
+    }
+
+    function disconnect(props, event) {
+      event.preventDefault();
+      props.root.setState({ connected: false });
+    }
+
     var App = /*@__PURE__*/(function (Component$$1) {
       function App(props) {
         Component$$1.call(this, props);
@@ -2205,7 +2224,11 @@
       App.prototype = Object.create( Component$$1 && Component$$1.prototype );
       App.prototype.constructor = App;
       App.prototype.render = function render$$1 () {
-        return createElement( 'div', null, "APP" );
+        return (
+          createElement( 'div', { class: "dark-primary-color shadow" },
+            createElement( Navbar, { root: this.props.root })
+          )
+        );
       };
 
       return App;
@@ -2218,9 +2241,15 @@
             createElement( 'h1', { class: "fw300" }, "Gestion des contacts"),
             createElement( 'form', {
               class: "auth default-primary-color shadow", onSubmit: linkEvent(props, loginRequest) },
-              createElement( 'input', { type: "text", placeholder: "Login" }),
-              createElement( 'input', { type: "password", placeholder: "Mot de passe" }),
-              createElement( 'input', { type: "submit", value: "Connexion" })
+              createElement( 'div', null,
+                createElement( 'input', { type: "text", placeholder: "Login" })
+              ),
+              createElement( 'div', null,
+                createElement( 'input', { type: "password", placeholder: "Mot de passe" })
+              ),
+              createElement( 'div', null,
+                createElement( 'input', { type: "submit", value: "Connexion" })
+              )
             )
           )
         )
@@ -2237,6 +2266,7 @@
         Component$$1.call(this, props);
         this.state = {
           connected: false,
+          failedConnection: false,
         };
       }
 
