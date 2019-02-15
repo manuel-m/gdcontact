@@ -1,7 +1,7 @@
 import { render, Component } from 'inferno';
 import { createElement } from 'inferno-create-element';
 
-import MySubComp from './comps/mySub.comp';
+import MySubComp from './app/comps/mySub.comp';
 
 class MyComponent extends Component {
   constructor(props) {
