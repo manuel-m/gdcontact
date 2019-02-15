@@ -2199,7 +2199,7 @@
       return (
         createElement( 'div', { class: "nav text-primary-color" },
           createElement( 'div', { class: "nav__left" },
-            createElement( 'span', { class: "nav__item" }, "Item 1"),
+            createElement( 'span', { class: "nav__item" }, "Contacts"),
             createElement( 'span', { class: "nav__item selected" }, "Item 2")
           ),
           createElement( 'div', { class: "nav__right" },
