@@ -27,5 +27,5 @@ export default function Login(props) {
 
 function loginRequest(props, event) {
   event.preventDefault();
-  props.root.setState({ connected: true });
+  props.m.setState({ connected: true });
 }

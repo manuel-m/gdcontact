@@ -2211,13 +2211,12 @@
 
     function disconnect(props, event) {
       event.preventDefault();
-      props.root.setState({ connected: false });
+      props.m.setState({ connected: false });
     }
 
     var App = /*@__PURE__*/(function (Component$$1) {
       function App(props) {
         Component$$1.call(this, props);
-        this.state = {};
       }
 
       if ( Component$$1 ) App.__proto__ = Component$$1;
@@ -2226,7 +2225,7 @@
       App.prototype.render = function render$$1 () {
         return (
           createElement( 'div', { class: "dark-primary-color shadow" },
-            createElement( Navbar, { root: this.props.root })
+            createElement( Navbar, { m: this.props.m })
           )
         );
       };
@@ -2258,7 +2257,7 @@
 
     function loginRequest(props, event) {
       event.preventDefault();
-      props.root.setState({ connected: true });
+      props.m.setState({ connected: true });
     }
 
     var Root = /*@__PURE__*/(function (Component$$1) {
@@ -2267,6 +2266,9 @@
         this.state = {
           connected: false,
           failedConnection: false,
+          router: {
+            current: 'contacts',
+          },
         };
       }
 
@@ -2275,9 +2277,9 @@
       Root.prototype.constructor = Root;
       Root.prototype.render = function render$$1 () {
         return this.state.connected === true ? (
-          createElement( App, { root: this })
+          createElement( App, { m: this })
         ) : (
-          createElement( Login, { root: this })
+          createElement( Login, { m: this })
         );
       };
 

@@ -19,5 +19,5 @@ export default function Navbar(props) {
 
 function disconnect(props, event) {
   event.preventDefault();
-  props.root.setState({ connected: false });
+  props.m.setState({ connected: false });
 }

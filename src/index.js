@@ -10,13 +10,16 @@ class Root extends Component {
     this.state = {
       connected: false,
       failedConnection: false,
+      router: {
+        current: 'contacts',
+      },
     };
   }
   render() {
     return this.state.connected === true ? (
-      <App root={this} />
+      <App m={this} />
     ) : (
-      <Login root={this} />
+      <Login m={this} />
     );
   }
 }
