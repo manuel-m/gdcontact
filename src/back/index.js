@@ -1,13 +1,18 @@
-import conf from './conf';
-
 import express from 'express';
 
+import conf from './conf';
+import contacts from './contacts';
+
+import model from './model';
+
+model.load();
+
 const app = express();
-const host = conf.SERVER_HOST;
-const port = conf.SERVER_PORT;
+const { SERVER_HOST, SERVER_PORT } = conf;
 
 app.use(express.static('public'));
+app.get('/api/contacts', contacts);
 
-app.listen(port, host, () => {
-  console.info(`server listen on ${port}`);
+app.listen(SERVER_PORT, SERVER_HOST, () => {
+  console.info(`server listen on ${SERVER_PORT}`);
 });
