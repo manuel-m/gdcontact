@@ -425,19 +425,6 @@
         return vNode;
     }
 
-    /**
-     * Links given data to event as first parameter
-     * @param {*} data data to be linked, it will be available in function as first parameter
-     * @param {Function} event Function to be called when event occurs
-     * @returns {{data: *, event: Function}}
-     */
-    function linkEvent(data, event) {
-        if (isFunction(event)) {
-            return { data: data, event: event };
-        }
-        return null; // Return null when event is invalid, to avoid creating unnecessary event handlers
-    }
-
     var xlinkNS = 'http://www.w3.org/1999/xlink';
     var xmlNS = 'http://www.w3.org/XML/1998/namespace';
     var namespaces = {
@@ -2195,51 +2182,85 @@
       );
     }
 
-    function Navbar(props) {
+    var shared = {};
+
+    function Navbar() {
       return (
-        createElement( 'div', { class: "nav text-primary-color" },
+        createElement( 'div', { class: "nav text-primary-color dark-primary-color shadow" },
           createElement( 'div', { class: "nav__left" },
-            createElement( 'span', { class: "nav__item" }, "Contacts"),
-            createElement( 'span', { class: "nav__item selected" }, "Item 2")
+            NavButton('Contacts', 'contacts'),
+            NavButton('Campagnes', 'campaigns')
           ),
           createElement( 'div', { class: "nav__right" },
-            createElement( 'span', { class: "nav__item", onClick: linkEvent(props, disconnect) }, "Déconnexion")
+            createElement( 'span', { class: "nav__item", onClick: disconnect }, "Déconnexion")
           )
         )
       );
     }
 
-    function disconnect(props, event) {
-      event.preventDefault();
-      props.m.setState({ connected: false });
+    function NavButton(label, target) {
+      return (
+        createElement( 'span', {
+          class: 'nav__item' + (shared.root.state.route === target ? ' selected' : ''), onClick: function (e) {
+            e.preventDefault();
+            shared.root.setState({ route: target });
+          } },
+          label
+        )
+      );
     }
 
-    var App = /*@__PURE__*/(function (Component$$1) {
-      function App(props) {
-        Component$$1.call(this, props);
-      }
+    function disconnect(event) {
+      event.preventDefault();
+      shared.root.setState({ connected: false });
+    }
 
-      if ( Component$$1 ) App.__proto__ = Component$$1;
-      App.prototype = Object.create( Component$$1 && Component$$1.prototype );
-      App.prototype.constructor = App;
-      App.prototype.render = function render$$1 () {
-        return (
-          createElement( 'div', { class: "dark-primary-color shadow" },
-            createElement( Navbar, { m: this.props.m })
+    function Contacts(props) {
+      return (
+        createElement( 'div', { class: "contacts-list" },
+          createElement( 'div', { class: "panel-top shadow" }),
+          createElement( 'div', { class: "panel-header" }, "TEST"),
+          createElement( 'div', { class: "panel-body shadow" },
+            createElement( 'ul', null,
+              createElement( 'li', { class: "contact-line" }, "Contact"),
+              createElement( 'li', { class: "contact-line" }, "Contact"),
+              createElement( 'li', { class: "contact-line" }, "Contact"),
+              createElement( 'li', { class: "contact-line" }, "Contact"),
+              createElement( 'li', { class: "contact-line" }, "Contact"),
+              createElement( 'li', { class: "contact-line" }, "Contact"),
+              createElement( 'li', { class: "contact-line" }, "Contact")
+            )
           )
-        );
-      };
+        )
+      );
+    }
 
-      return App;
-    }(Component));
+    function Contacts$1(props) {
+      return createElement( 'div', null, "Campagnes" );
+    }
 
-    function Login(props) {
+    function App() {
+      return (
+        createElement( 'div', null,
+          createElement( Navbar, null ),
+          createElement( Router, null )
+        )
+      );
+    }
+
+    function Router() {
+      var ref = shared.root.state;
+      var route = ref.route;
+      if (route === 'contacts') { return createElement( Contacts, null ); }
+      return createElement( Contacts$1, null );
+    }
+
+    function Login() {
       return (
         createElement( 'div', { class: "centered-wrapper" },
           createElement( 'div', { class: "centered-content text-primary-color" },
             createElement( 'h1', { class: "fw300" }, "Gestion des contacts"),
-            createElement( 'form', {
-              class: "auth default-primary-color shadow", onSubmit: linkEvent(props, loginRequest) },
+            createElement( 'form', { class: "auth default-primary-color shadow", onSubmit: loginRequest },
               createElement( 'div', null,
                 createElement( 'input', { type: "text", placeholder: "Login" })
               ),
@@ -2255,9 +2276,10 @@
       );
     }
 
-    function loginRequest(props, event) {
+    function loginRequest(event) {
+      var root = shared.root;
       event.preventDefault();
-      props.m.setState({ connected: true });
+      root.setState({ connected: true });
     }
 
     var Root = /*@__PURE__*/(function (Component$$1) {
@@ -2266,21 +2288,16 @@
         this.state = {
           connected: false,
           failedConnection: false,
-          router: {
-            current: 'contacts',
-          },
+          route: 'contacts',
         };
+        shared.root = this;
       }
 
       if ( Component$$1 ) Root.__proto__ = Component$$1;
       Root.prototype = Object.create( Component$$1 && Component$$1.prototype );
       Root.prototype.constructor = Root;
       Root.prototype.render = function render$$1 () {
-        return this.state.connected === true ? (
-          createElement( App, { m: this })
-        ) : (
-          createElement( Login, { m: this })
-        );
+        return this.state.connected === true ? createElement( App, null ) : createElement( Login, null );
       };
 
       return Root;

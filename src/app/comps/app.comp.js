@@ -1,17 +1,22 @@
-import { Component } from 'inferno';
 import { createElement } from 'inferno-create-element';
 
 import Nav from './navbar.comp';
+import Contacts from './contacts.comp';
+import Campaigns from './campaigns.comp';
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <div class="dark-primary-color shadow">
-        <Nav m={this.props.m} />
-      </div>
-    );
-  }
+import shared from '../shared';
+
+export default function App() {
+  return (
+    <div>
+      <Nav />
+      <Router />
+    </div>
+  );
+}
+
+function Router() {
+  const { route } = shared.root.state;
+  if (route === 'contacts') return <Contacts />;
+  return <Campaigns />;
 }

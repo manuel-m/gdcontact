@@ -4,23 +4,20 @@ import { createElement } from 'inferno-create-element';
 import App from './app/comps/app.comp';
 import Login from './app/comps/login.comp';
 
+import shared from './app/shared';
+
 class Root extends Component {
   constructor(props) {
     super(props);
     this.state = {
       connected: false,
       failedConnection: false,
-      router: {
-        current: 'contacts',
-      },
+      route: 'contacts',
     };
+    shared.root = this;
   }
   render() {
-    return this.state.connected === true ? (
-      <App m={this} />
-    ) : (
-      <Login m={this} />
-    );
+    return this.state.connected === true ? <App /> : <Login />;
   }
 }
 

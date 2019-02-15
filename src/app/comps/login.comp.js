@@ -1,15 +1,13 @@
-import { linkEvent } from 'inferno';
 import { createElement } from 'inferno-create-element';
 
-export default function Login(props) {
+import shared from '../shared';
+
+export default function Login() {
   return (
     <div class="centered-wrapper">
       <div class="centered-content text-primary-color">
         <h1 class="fw300">Gestion des contacts</h1>
-        <form
-          class="auth default-primary-color shadow"
-          onSubmit={linkEvent(props, loginRequest)}
-        >
+        <form class="auth default-primary-color shadow" onSubmit={loginRequest}>
           <div>
             <input type="text" placeholder="Login" />
           </div>
@@ -25,7 +23,8 @@ export default function Login(props) {
   );
 }
 
-function loginRequest(props, event) {
+function loginRequest(event) {
+  const { root } = shared;
   event.preventDefault();
-  props.m.setState({ connected: true });
+  root.setState({ connected: true });
 }
