@@ -23,7 +23,8 @@ export default function Login() {
   );
 }
 
-function loginRequest(event) {
+async function loginRequest(event) {
   event.preventDefault();
+  await action('config.load');
   action('contacts.list');
 }

@@ -1,7 +1,5 @@
-import dotenv from 'dotenv';
+import { readFileSync } from 'fs';
 
-const conf = {};
-
-Object.assign(conf, dotenv.config().parsed);
+const conf = JSON.parse(readFileSync('public/config.json'));
 
 export default conf;

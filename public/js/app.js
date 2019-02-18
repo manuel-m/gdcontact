@@ -2183,12 +2183,13 @@
     }
 
     var shared = {
-      root: null,
+      config: null,
       contacts: {
         page: 0,
         search: '',
         items: [],
       },
+      root: null,
     };
 
     function Navbar() {
@@ -2196,7 +2197,8 @@
         createElement( 'div', { class: "nav text-primary-color dark-primary-color shadow" },
           createElement( 'div', { class: "nav__left" },
             NavButton('Contacts', 'contacts'),
-            NavButton('Campagnes', 'campaigns')
+            NavButton('Courriers', 'mails')
+            /* {NavButton('Campagnes', 'campaigns')} */
           ),
           createElement( 'div', { class: "nav__right" },
             createElement( 'span', { class: "nav__item", onClick: disconnect }, "Déconnexion")
@@ -2229,13 +2231,35 @@
           createElement( 'div', { class: "panel-header" }, "TEST"),
           createElement( 'div', { class: "panel-body shadow" },
             createElement( 'ul', null,
-              createElement( 'li', { class: "contact-line" }, "Contact"),
-              createElement( 'li', { class: "contact-line" }, "Contact"),
-              createElement( 'li', { class: "contact-line" }, "Contact"),
-              createElement( 'li', { class: "contact-line" }, "Contact"),
-              createElement( 'li', { class: "contact-line" }, "Contact"),
-              createElement( 'li', { class: "contact-line" }, "Contact"),
-              createElement( 'li', { class: "contact-line" }, "Contact")
+              shared.contacts.items.map(function (line) { return (
+                createElement( 'li', { class: "contact-line" }, contactLineLabel(line))
+              ); })
+            )
+          )
+        )
+      );
+    }
+
+    function contactLineLabel(l) {
+      var ref = shared.config.contacts.format;
+      var map = ref.map;
+      return ((l[map.last_name]) + " " + (l[map.first_name]));
+    }
+
+    function Mails(props) {
+      return (
+        createElement( 'div', { class: "contacts-list" },
+          createElement( 'div', { class: "panel-top shadow" }),
+          createElement( 'div', { class: "panel-header" },
+            createElement( 'div', { class: "toolbar" },
+              createElement( 'div', { class: "toolbar__left" },
+                createElement( 'span', { class: "toolbar__item" }, "Nouveau")
+              )
+            )
+          ),
+          createElement( 'div', { class: "panel-body shadow" },
+            createElement( 'ul', null,
+              createElement( 'li', { class: "contact-line" }, "Destinataire")
             )
           )
         )
@@ -2259,6 +2283,7 @@
       var ref = shared.root.state;
       var route = ref.route;
       if (route === 'contacts') { return createElement( Contacts, null ); }
+      if (route === 'mails') { return createElement( Mails, null ); }
       return createElement( Contacts$1, null );
     }
 
@@ -2289,11 +2314,26 @@
     }
 
     var actions = {
+      'config.load': configLoad,
       'contacts.list': contactsList,
     };
 
     function action(actionId, payload) {
       return actions[actionId](payload);
+    }
+
+    async function configLoad() {
+      shared.config = await api.get('config.json');
+
+      // contacts mapping
+      {
+        var ref = shared.config.contacts;
+        var format = ref.format;
+        format.map = format.columns.reduce(function (o, v, i) {
+          o[v] = i;
+          return o;
+        }, {});
+      }
     }
 
     async function contactsList() {
@@ -2303,6 +2343,7 @@
       };
       var items = await api.post('/api/contacts', payload);
       shared.contacts.items = items;
+      console.log(shared.contacts.items);
       shared.root.setState({ connected: true, route: 'contacts' });
     }
 
@@ -2327,14 +2368,15 @@
       );
     }
 
-    function loginRequest(event) {
+    async function loginRequest(event) {
       event.preventDefault();
+      await action('config.load');
       action('contacts.list');
     }
 
-    var Root = /*@__PURE__*/(function (Component$$1) {
+    var Root = /*@__PURE__*/(function (Component) {
       function Root(props) {
-        Component$$1.call(this, props);
+        Component.call(this, props);
         this.state = {
           connected: false,
           failedConnection: false,
@@ -2343,10 +2385,10 @@
         shared.root = this;
       }
 
-      if ( Component$$1 ) Root.__proto__ = Component$$1;
-      Root.prototype = Object.create( Component$$1 && Component$$1.prototype );
+      if ( Component ) Root.__proto__ = Component;
+      Root.prototype = Object.create( Component && Component.prototype );
       Root.prototype.constructor = Root;
-      Root.prototype.render = function render$$1 () {
+      Root.prototype.render = function render () {
         return this.state.connected === true ? createElement( App, null ) : createElement( Login, null );
       };
 

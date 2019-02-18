@@ -3,19 +3,17 @@ import express from 'express';
 
 import conf from './conf';
 import contacts from './contacts';
-
-import model from './model';
-
-model.load();
+import organizations from './organizations';
 
 const app = express();
-const { SERVER_HOST, SERVER_PORT } = conf;
+const { host, port } = conf.server;
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-app.post('/api/contacts', contacts);
+app.post('/api/contacts', contacts.middleWare);
+app.get('/api/organizations', organizations);
 
-app.listen(SERVER_PORT, SERVER_HOST, () => {
-  console.info(`server listen on ${SERVER_PORT}`);
+app.listen(port, host, () => {
+  console.info(`server listen on ${port}`);
 });

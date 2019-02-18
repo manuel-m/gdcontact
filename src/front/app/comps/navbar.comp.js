@@ -7,7 +7,8 @@ export default function Navbar() {
     <div class="nav text-primary-color dark-primary-color shadow">
       <div class="nav__left">
         {NavButton('Contacts', 'contacts')}
-        {NavButton('Campagnes', 'campaigns')}
+        {NavButton('Courriers', 'mails')}
+        {/* {NavButton('Campagnes', 'campaigns')} */}
       </div>
       <div class="nav__right">
         <span class="nav__item" onClick={disconnect}>

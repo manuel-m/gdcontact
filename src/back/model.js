@@ -3,17 +3,15 @@ import { readFileSync, writeFileSync } from 'fs';
 const data = {
   contacts: [],
   campaigns: [],
+  emails: [],
+  mails: [],
+  organizations: [],
 };
 
 export default {
   data,
-  load,
   save,
 };
-
-function load() {
-  Object.assign(data, JSON.parse(readFileSync('data.json')));
-}
 
 function save() {
   const jsonDb = JSON.stringify(data, undefined, 1);

@@ -2,27 +2,23 @@
 
 var bodyParser = require('body-parser');
 var express = require('express');
-var dotenv = require('dotenv');
 var fs = require('fs');
+var parse = require('csv-parse/lib/sync');
 
-const conf = {};
-
-Object.assign(conf, dotenv.config().parsed);
+const conf = JSON.parse(fs.readFileSync('public/config.json'));
 
 const data = {
   contacts: [],
   campaigns: [],
+  emails: [],
+  mails: [],
+  organizations: [],
 };
 
 var model = {
   data,
-  load,
   save,
 };
-
-function load() {
-  Object.assign(data, JSON.parse(fs.readFileSync('data.json')));
-}
 
 function save() {
   const jsonDb = JSON.stringify(data, undefined, 1);
@@ -32,21 +28,43 @@ function save() {
   });
 }
 
-function contacts(req, res) {
-  console.log(req.body);
+var contacts = {
+  load,
+  middleWare,
+};
+
+load();
+
+function load() {
+  const fileContent = fs.readFileSync('db/contacts/contacts.csv', {
+    encoding: 'utf8',
+  });
+
+  model.data.contacts = parse(fileContent, {
+    delimiter: ';',
+    quote: '"',
+    skip_empty_lines: true,
+  });
+}
+
+function middleWare(req, res) {
   return res.json(model.data.contacts);
 }
 
-model.load();
+function organizations(req, res) {
+  console.log(req.body);
+  return res.json(model.data.organizations);
+}
 
 const app = express();
-const { SERVER_HOST, SERVER_PORT } = conf;
+const { host, port } = conf.server;
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-app.post('/api/contacts', contacts);
+app.post('/api/contacts', contacts.middleWare);
+app.get('/api/organizations', organizations);
 
-app.listen(SERVER_PORT, SERVER_HOST, () => {
-  console.info(`server listen on ${SERVER_PORT}`);
+app.listen(port, host, () => {
+  console.info(`server listen on ${port}`);
 });

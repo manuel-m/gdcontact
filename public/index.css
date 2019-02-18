@@ -73,14 +73,17 @@ ul {
   margin-bottom: 1rem;
 }
 
+.toolbar:after,
 .nav:after {
   content: '';
   display: block;
   clear: both;
 }
+.toolbar__left,
 .nav__left {
   float: left;
 }
+.toolbar__right,
 .nav__right {
   float: right;
 }
@@ -90,6 +93,13 @@ ul {
   line-height: 3rem;
   cursor: pointer;
   color: #fff;
+}
+
+.toolbar__item {
+  padding: 0.4rem;
+  cursor: pointer;
+  background-color: #455a64;
+  border-radius: 2px;
 }
 
 .nav__item.selected {
