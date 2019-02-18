@@ -40,9 +40,11 @@ function load() {
     encoding: 'utf8',
   });
 
+  const { delimiter, quote } = conf.contacts.format;
+
   model.data.contacts = parse(fileContent, {
-    delimiter: ';',
-    quote: '"',
+    delimiter,
+    quote,
     skip_empty_lines: true,
   });
 }
