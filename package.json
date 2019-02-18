@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "npm-run-all --parallel build:dev serve:dev",
     "build:dev": "rollup -cw",
+    "build:ncc": "ncc build src/back/index.js -m && node dist/index.js",
     "build": "cross-env NODE_ENV=production rollup -c",
     "serve": "node server.js",
     "serve:dev": "nodemon server.js",
@@ -22,6 +23,7 @@
   },
   "homepage": "https://github.com/manuel-m/gdcontact#readme",
   "devDependencies": {
+    "@zeit/ncc": "^0.15.2",
     "cross-env": "^5.2.0",
     "nodemon": "^1.18.10",
     "npm-run-all": "^4.1.5",

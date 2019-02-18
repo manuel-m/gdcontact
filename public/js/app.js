@@ -2194,13 +2194,13 @@
 
     function Navbar() {
       return (
-        createElement( 'div', { class: "nav text-primary-color dark-primary-color shadow" },
-          createElement( 'div', { class: "nav__left" },
-            NavButton('Contacts', 'contacts'),
+        createElement( 'div', { class: "nav text-primary-color dark-primary-color shadow" }, 
+          createElement( 'div', { class: "nav__left" }, 
+            NavButton('Contacts', 'contacts'), 
             NavButton('Courriers', 'mails')
             /* {NavButton('Campagnes', 'campaigns')} */
-          ),
-          createElement( 'div', { class: "nav__right" },
+          ), 
+          createElement( 'div', { class: "nav__right" }, 
             createElement( 'span', { class: "nav__item", onClick: disconnect }, "Déconnexion")
           )
         )
@@ -2213,7 +2213,7 @@
           class: 'nav__item' + (shared.root.state.route === target ? ' selected' : ''), onClick: function (e) {
             e.preventDefault();
             shared.root.setState({ route: target });
-          } },
+          } }, 
           label
         )
       );
@@ -2226,11 +2226,11 @@
 
     function Contacts(props) {
       return (
-        createElement( 'div', { class: "contacts-list" },
-          createElement( 'div', { class: "panel-top shadow" }),
-          createElement( 'div', { class: "panel-header" }, "TEST"),
-          createElement( 'div', { class: "panel-body shadow" },
-            createElement( 'ul', null,
+        createElement( 'div', { class: "contacts-list" }, 
+          createElement( 'div', { class: "panel-top shadow" }), 
+          createElement( 'div', { class: "panel-header" }, "TEST"), 
+          createElement( 'div', { class: "panel-body shadow" }, 
+            createElement( 'ul', null, 
               shared.contacts.items.map(function (line) { return (
                 createElement( 'li', { class: "contact-line" }, contactLineLabel(line))
               ); })
@@ -2248,17 +2248,17 @@
 
     function Mails(props) {
       return (
-        createElement( 'div', { class: "contacts-list" },
-          createElement( 'div', { class: "panel-top shadow" }),
-          createElement( 'div', { class: "panel-header" },
-            createElement( 'div', { class: "toolbar" },
-              createElement( 'div', { class: "toolbar__left" },
+        createElement( 'div', { class: "contacts-list" }, 
+          createElement( 'div', { class: "panel-top shadow" }), 
+          createElement( 'div', { class: "panel-header" }, 
+            createElement( 'div', { class: "toolbar" }, 
+              createElement( 'div', { class: "toolbar__left" }, 
                 createElement( 'span', { class: "toolbar__item" }, "Nouveau")
               )
             )
-          ),
-          createElement( 'div', { class: "panel-body shadow" },
-            createElement( 'ul', null,
+          ), 
+          createElement( 'div', { class: "panel-body shadow" }, 
+            createElement( 'ul', null, 
               createElement( 'li', { class: "contact-line" }, "Destinataire")
             )
           )
@@ -2272,8 +2272,8 @@
 
     function App() {
       return (
-        createElement( 'div', null,
-          createElement( Navbar, null ),
+        createElement( 'div', null, 
+          createElement( Navbar, null ), 
           createElement( Router, null )
         )
       );
@@ -2349,17 +2349,17 @@
 
     function Login() {
       return (
-        createElement( 'div', { class: "centered-wrapper" },
-          createElement( 'div', { class: "centered-content text-primary-color" },
-            createElement( 'h1', { class: "fw300" }, "Gestion des contacts"),
-            createElement( 'form', { class: "auth default-primary-color shadow", onSubmit: loginRequest },
-              createElement( 'div', null,
+        createElement( 'div', { class: "centered-wrapper" }, 
+          createElement( 'div', { class: "centered-content text-primary-color" }, 
+            createElement( 'h1', { class: "fw300" }, "Gestion des contacts"), 
+            createElement( 'form', { class: "auth default-primary-color shadow", onSubmit: loginRequest }, 
+              createElement( 'div', null, 
                 createElement( 'input', { type: "text", placeholder: "Login" })
-              ),
-              createElement( 'div', null,
+              ), 
+              createElement( 'div', null, 
                 createElement( 'input', { type: "password", placeholder: "Mot de passe" })
-              ),
-              createElement( 'div', null,
+              ), 
+              createElement( 'div', null, 
                 createElement( 'input', { type: "submit", value: "Connexion" })
               )
             )
