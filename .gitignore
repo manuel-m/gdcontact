@@ -1,4 +1,6 @@
 db/
+dist/
+sendingblue.js
 
 package-lock.json
 

@@ -5,8 +5,8 @@ export default function Mails(props) {
     <div class="contacts-list">
       <div class="panel-top shadow" />
       <div class="panel-header">
-        <div class="toolbar">
-          <div class="toolbar__left">
+        <div class="line">
+          <div class="line__left">
             <span class="toolbar__item">Nouveau</span>
           </div>
         </div>

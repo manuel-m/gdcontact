@@ -20,5 +20,17 @@ export default function Contacts(props) {
 
 function contactLineLabel(l) {
   const { map } = shared.config.contacts.format;
-  return `${l[map.last_name]} ${l[map.first_name]}`;
+  const groups = l[map.groups].split(
+    shared.config.contacts.format.delimiters[1],
+  );
+  return (
+    <div class="line">
+      <div class="line__left">{`${l[map.last_name]} ${l[map.first_name]}`}</div>
+      <div class="line__right">
+        {groups.map(g => (
+          <span class="badge primary">{g}</span>
+        ))}
+      </div>
+    </div>
+  );
 }

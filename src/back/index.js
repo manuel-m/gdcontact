@@ -5,6 +5,9 @@ import conf from './conf';
 import contacts from './contacts';
 import organizations from './organizations';
 
+// import odt from './odt';
+// odt.content('./db/courriers/1550577494/1550577494.courrier.odt', 'mminana');
+
 const app = express();
 const { host, port } = conf.server;
 

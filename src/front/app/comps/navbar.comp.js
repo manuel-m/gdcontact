@@ -4,13 +4,13 @@ import shared from '../shared';
 
 export default function Navbar() {
   return (
-    <div class="nav text-primary-color dark-primary-color shadow">
-      <div class="nav__left">
+    <div class="nav line text-primary-color dark-primary-color shadow">
+      <div class="line__left">
         {NavButton('Contacts', 'contacts')}
         {NavButton('Courriers', 'mails')}
         {/* {NavButton('Campagnes', 'campaigns')} */}
       </div>
-      <div class="nav__right">
+      <div class="line__right">
         <span class="nav__item" onClick={disconnect}>
           Déconnexion
         </span>

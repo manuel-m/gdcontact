@@ -40,10 +40,10 @@ function load() {
     encoding: 'utf8',
   });
 
-  const { delimiter, quote } = conf.contacts.format;
+  const { delimiters, quote } = conf.contacts.format;
 
   model.data.contacts = parse(fileContent, {
-    delimiter,
+    delimiter: delimiters[0],
     quote,
     skip_empty_lines: true,
   });
@@ -57,6 +57,9 @@ function organizations(req, res) {
   console.log(req.body);
   return res.json(model.data.organizations);
 }
+
+// import odt from './odt';
+// odt.content('./db/courriers/1550577494/1550577494.courrier.odt', 'mminana');
 
 const app = express();
 const { host, port } = conf.server;

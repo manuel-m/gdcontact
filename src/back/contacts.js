@@ -16,10 +16,10 @@ function load() {
     encoding: 'utf8',
   });
 
-  const { delimiter, quote } = conf.contacts.format;
+  const { delimiters, quote } = conf.contacts.format;
 
   model.data.contacts = parse(fileContent, {
-    delimiter,
+    delimiter: delimiters[0],
     quote,
     skip_empty_lines: true,
   });

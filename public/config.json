@@ -13,9 +13,10 @@
         "email",
         "mailing_address",
         "phones",
-        "organizationId"
+        "organizationId",
+        "groups"
       ],
-      "delimiter": ";",
+      "delimiters": [";", "|"],
       "quote": "\""
     }
   }

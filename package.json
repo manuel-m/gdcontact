@@ -24,6 +24,7 @@
   "homepage": "https://github.com/manuel-m/gdcontact#readme",
   "devDependencies": {
     "@zeit/ncc": "^0.15.2",
+    "adm-zip": "^0.4.13",
     "cross-env": "^5.2.0",
     "nodemon": "^1.18.10",
     "npm-run-all": "^4.1.5",
@@ -35,8 +36,10 @@
     "uglify-es": "^3.3.9"
   },
   "dependencies": {
+    "archiver": "^3.0.0",
     "body-parser": "^1.18.3",
     "csv": "^5.1.1",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "sib-api-v3-sdk": "^7.1.0"
   }
 }

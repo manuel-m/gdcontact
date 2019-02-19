@@ -13,7 +13,15 @@ export default [
   {
     input: 'src/back/index.js',
     output: { file: 'server.js', format: 'cjs', interop: false },
-    external: ['csv-parse/lib/sync', 'body-parser', 'dotenv', 'express', 'fs'],
+    external: [
+      'adm-zip',
+      'archiver',
+      'csv-parse/lib/sync',
+      'body-parser',
+      'dotenv',
+      'express',
+      'fs',
+    ],
   },
 
   /***************************************************************************
